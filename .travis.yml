@@ -12,7 +12,7 @@ before_install:
 script:
 - docker images heartysoft/alpine-confluent-kafka
 after_success:
-- if [ "$TRAVIS_BRANCH" == "master" ]; then export REPO=heartysoft/alpine-confluent-kafka
-  && \ docker build -t $REPO:python-3.6 -t $REPO:$COMMIT - < Dockerfile.alpine.py3
-  && \ docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USER" -p="$DOCKER_PASS"; docker
-  push $REPO; fi
+- export REPO=heartysoft/alpine-confluent-kafka
+- docker build -t $REPO:python-3.6 -t $REPO:$COMMIT - < Dockerfile.alpine.py3
+- docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USER" -p="$DOCKER_PASS" 
+- docker push $REPO
