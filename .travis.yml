@@ -8,10 +8,10 @@ services:
 - docker
 script:
 - export REPO=heartysoft/alpine-confluent-kafka
-- docker build -t $REPO:python-3.6 -t $REPO:python-3.6-$TRAVIS_TAG - < Dockerfile.alpine.py3
+- docker build -t $REPO:python-3.6 - < Dockerfile.alpine.py3
 deploy:
   provider: script
-  script: docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USER" -p="$DOCKER_PASS" && docker push $REPO
+  script: docker tag $REPO:python-3.6 $REPO:python-3.6-$TRAVIS_TAG && docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USER" -p="$DOCKER_PASS" && docker push $REPO
   on:
     tags: true
 
