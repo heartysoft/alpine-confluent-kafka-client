@@ -1,7 +1,6 @@
 sudo: required
 env:
   global:
-  - COMMIT: "${TRAVIS_COMMIT::8}"
   - secure: N8/vjd13nmERe2dpPo7HKApyk/9J/BJgIZKgQzhhDcoR+mUZeNBMEnFkL3HU7Jh0Q0VVBXv3kbugbuWAakRn9Tj2Eld1IWtTmHi+o3RpvJZC2RzN7f/7CoFBMePsnk55cQyps/h9LSSRU+CDvjqZnWKVp8Q8WazE0K6EZ2IP36EZopqtA8Uq1yKq8BkHr+ZgURYXak+JNSMOSyeDAZiCHPY+Wd7BMJSENILps0WUR9ZFh3TyQjRfrM3DG4rFQiqbbnfSW8+JixuQFVr0m+xjB8Sv0c9VCWyR82H6S7hBIuO0FSyP+MXWJYqLAeoAmbHqQ9E2fpX2pZ+C7tqSWDHXQK0ZghZoLfHQgnhn2ji16CeZUdzqXeBq+Pqrj/goLvYTOw0evmwag+h7I0BfNSRUSI52fEzQXiKVKXiAeZ5fuNWmY1EdLm4UxAYULHO6sto+LtbodcIWltSxx9Y1qlmMqpc4EmLkM1jahTRD9ALKxAk+GpBaTeOxFC6jC7bbu4A8eE6TIg4pmay32/ToDQbpeaN54RFqO7GAYNmzg0izQe7NX8PBBT/FCR0RBFMiLlC/GVq4Gwz4HhAHKdP2iRCBy/5KvfH1hz9lTTP3NHZkDtZ6pAOmC+GzG/5yqJqMZVU9o/HCW057GKTUypyA5df3O/d3mFGILJW25TH0mBoIDcs=
   - secure: OZyyZktuOqBMAnyk51BH9VuyrieXsxr/KV6NBXymVM59oPxoRpjhieRjikr0HeCUxIbL/612rI601p2F/BNWno/QAk+2EUo/j59dRwdwA17CIoytegNXuXx06COyJwEyVanlRkAgkqyMLcJL3LsGcw1qem3b3NfCWxKI9SikEavOzC/zOLN3cZmCyWQxxvLpI/FDXvQ11uqScZS2kyID1NF46mmJmAPZIwZCOkRlpf5ZLZK9Tuu3VFTqcb1FbUB1fydj6uhJ4TIVU5+IjMlvpUlBCMb/Mrb5h+ebq06qUnpXjDRIS1vTrrRmkxFXd9wDCxXkmmqMKl9LMYcP7Jd8tFyBZEw8Yj8T58rjgDpJFWyeY/lr/TRxoaMv8G+6rnjqYi6XGiN3nboFPeCn0CN02Lyd4HdKD5jGYWCq2NcbX6oo05A/aR5g2TeJie9K4a/WETiTOs7DjU51Te8AXYx3jJjD8n/m27aMKDXb/ECfQbAdP/Lr/X7d6l3Y5+jtw2iyrok+HyeCnMHU5eMFgfUtftRj95LjBYPu2vFmPJkjrrDrPb7qNphfd7C9WtaPycx34llRGL0eHyswY7Fl/qiNU9q0Lh3pChX6lfCLRIeXQ5b4+F6inaqjvdPsDLdWnmYni5zD9VQQ7lcZF0cRMC8DWYyznyybLEW+AW4Up7OBLcw=
   - secure: ZUrpmDiVeAIGi076ELEWLonpR3zY5TFbx9iz19Uq1b/Ag9jVs1p/XRT3vkG+5LiSoncAWKh6UhvOlJUfui5Y08ODxFBA10oRa6+bVph/S1NhvAAwuCsYO63I3T999T7NXz/dBm73sjXIgyDqnCr0CTXzG93NU2P+mvA2E57xU0tzZzLsgQLNVDgzVj76NcIr4rhHQPACwtL8jPq/Fspy0POoblszZXlIUW7Y/nA6z3VklMk/rNPFTyeMxg6o2VlsZ9Fij+e5q8pvCCnZ8pIowORebj/Dre2KEjE7iQ/lBJDO1y8By7SOyYWEDb/r7ziTwhTaZeXXa96h4NgC2a+OpitOugOIjPfz0oLAYcDp03BAh18lwyAvrMqlcYmsOB+lPICI04LKcFDU9q2gRy46IxrFDbaLuN+Hf9lmrMJw0jtTwBYZ30rENX8cd2mZDq61DNWqHLs0lIlr5cyhpYslbBJKBGD2KFlmUV1iVRpZudIJP2rR0s3j4kg0rRaSSRTS3xBwhnkXWSeUWXicwOVAteJF2Ezi1oSgRB/oXDlPm8/ZAR4hc2r88ErtuH7/8yf3nC0u3H+M5M7ewY4ULBXlyiKmPwYYhNWXvLnXuPRqiN/0wraCfMSjz/023K/A+jZ7uKmcJOgVwYhdUQp3AD2+p10XwwPKEREqquHOsmCL0H0=
@@ -9,7 +8,10 @@ services:
 - docker
 script:
 - export REPO=heartysoft/alpine-confluent-kafka
-- docker build -t $REPO:python-3.6 -t $REPO:$COMMIT - < Dockerfile.alpine.py3
-- docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USER" -p="$DOCKER_PASS" 
-- docker push $REPO
+- docker build -t $REPO:python-3.6 -t $REPO:python-3.6-$TRAVIS_TAG - < Dockerfile.alpine.py3
+deploy:
+  provider: script
+  script: docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USER" -p="$DOCKER_PASS" && docker push $REPO
+  on:
+    tags: true
 
