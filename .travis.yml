@@ -10,8 +10,6 @@ services:
 before_install:
 - export REPO=heartysoft/alpine-confluent-kafka
 - docker build -t $REPO:python-3.6 -t $REPO:$COMMIT - < Dockerfile.alpine.py3
-
-after_success:
 - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USER" -p="$DOCKER_PASS" 
 - docker push $REPO
 
