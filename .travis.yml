@@ -7,7 +7,7 @@ env:
   - secure: ZUrpmDiVeAIGi076ELEWLonpR3zY5TFbx9iz19Uq1b/Ag9jVs1p/XRT3vkG+5LiSoncAWKh6UhvOlJUfui5Y08ODxFBA10oRa6+bVph/S1NhvAAwuCsYO63I3T999T7NXz/dBm73sjXIgyDqnCr0CTXzG93NU2P+mvA2E57xU0tzZzLsgQLNVDgzVj76NcIr4rhHQPACwtL8jPq/Fspy0POoblszZXlIUW7Y/nA6z3VklMk/rNPFTyeMxg6o2VlsZ9Fij+e5q8pvCCnZ8pIowORebj/Dre2KEjE7iQ/lBJDO1y8By7SOyYWEDb/r7ziTwhTaZeXXa96h4NgC2a+OpitOugOIjPfz0oLAYcDp03BAh18lwyAvrMqlcYmsOB+lPICI04LKcFDU9q2gRy46IxrFDbaLuN+Hf9lmrMJw0jtTwBYZ30rENX8cd2mZDq61DNWqHLs0lIlr5cyhpYslbBJKBGD2KFlmUV1iVRpZudIJP2rR0s3j4kg0rRaSSRTS3xBwhnkXWSeUWXicwOVAteJF2Ezi1oSgRB/oXDlPm8/ZAR4hc2r88ErtuH7/8yf3nC0u3H+M5M7ewY4ULBXlyiKmPwYYhNWXvLnXuPRqiN/0wraCfMSjz/023K/A+jZ7uKmcJOgVwYhdUQp3AD2+p10XwwPKEREqquHOsmCL0H0=
 services:
 - docker
-before_install:
+script:
 - export REPO=heartysoft/alpine-confluent-kafka
 - docker build -t $REPO:python-3.6 -t $REPO:$COMMIT - < Dockerfile.alpine.py3
 - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USER" -p="$DOCKER_PASS" 
