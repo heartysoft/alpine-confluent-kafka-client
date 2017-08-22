@@ -18,5 +18,5 @@ after_success:
         docker push $REPO;
     else 
         echo "not a tagged build. won't push images.";
-    fi
+    fi;
 
