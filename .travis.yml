@@ -14,13 +14,12 @@ deploy:
   provider: script
   on:
     tags: true
-  script:
-    - >   
-      docker tag $REPO:python-3.6-0.9.4 $REPO:python-3.6-0.9.4-$TRAVIS_TAG &&
-      docker tag $REPO:python-3.6-0.11.0 $REPO:python-3.6-0.11.0-$TRAVIS_TAG &&
-      docker tag $REPO:python-3.6-0.11.0 $REPO:python-3.6-$TRAVIS_TAG &&
-      docker tag $REPO:python-3.6-0.11.0 $REPO:python-3.6 &&
-      docker tag $REPO:python-3.6-0.11.0 $REPO:python-3.6-latest &&
-      docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USER" -p="$DOCKER_PASS" &&
-      docker push $REPO
+  script: |
+          docker tag $REPO:python-3.6-0.9.4 $REPO:python-3.6-0.9.4-$TRAVIS_TAG &&
+          docker tag $REPO:python-3.6-0.11.0 $REPO:python-3.6-0.11.0-$TRAVIS_TAG &&
+          docker tag $REPO:python-3.6-0.11.0 $REPO:python-3.6-$TRAVIS_TAG &&
+          docker tag $REPO:python-3.6-0.11.0 $REPO:python-3.6 &&
+          docker tag $REPO:python-3.6-0.11.0 $REPO:python-3.6-latest &&
+          docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USER" -p="$DOCKER_PASS" &&
+          docker push $REPO
 
