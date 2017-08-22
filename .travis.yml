@@ -22,5 +22,5 @@ deploy:
         docker tag $REPO:python-3.6-0.11.0 $REPO:python-3.6 &&
         docker tag $REPO:python-3.6-0.11.0 $REPO:python-3.6-latest &&
         docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USER" -p="$DOCKER_PASS" &&
-        docker push $REPO
+        docker push $REPO &&
         echo push complete
