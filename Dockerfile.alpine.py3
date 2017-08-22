@@ -1,11 +1,10 @@
 FROM python:3.6-alpine
 MAINTAINER Ashic Mahtab (ashic@live.com)
+ARG KAFKA_VERSION
 
 RUN sed -i -e 's/v3\.4/edge/g' /etc/apk/repositories  && \
-    apk --no-cache add alpine-sdk librdkafka-dev
-
-ARG KAFKA_VERSION
-RUN pip install --no-cache-dir confluent-kafka[avro]==$KAFKA_VERSION && \
+    apk --no-cache add alpine-sdk librdkafka-dev && \
+    pip install --no-cache-dir confluent-kafka[avro]==$KAFKA_VERSION && \
     apk del alpine-sdk && \
     rm -rf /root/cache/*
 
