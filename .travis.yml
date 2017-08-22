@@ -11,12 +11,12 @@ script:
 - docker build -t $REPO:python-3.6-0.9.4 --build-arg KAFKA_VERSION=0.9.4 - < Dockerfile.alpine.py3
 - docker build -t $REPO:python-3.6-0.11.0 --build-arg KAFKA_VERSION=0.11.0 - < Dockerfile.alpine.py3
 after_success:
-  - if ([ ! -z "$TRAVIS_TAG" ]); then 
+  - if [ ! -z "$TRAVIS_TAG" ]; then 
         docker tag $REPO:python-3.6-0.9.4 $REPO:python-3.6-0.9.4-$TRAVIS_TAG;
         docker tag $REPO:python-3.6-0.11.0 $REPO:python-3.6-0.11.0-$TRAVIS_TAG;
         docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USER" -p="$DOCKER_PASS";
         docker push $REPO;
     else 
-        echo "not a tagged build. won't push images." 
+        echo "not a tagged build. won't push images.";
     fi
 
