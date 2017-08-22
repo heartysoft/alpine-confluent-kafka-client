@@ -12,6 +12,8 @@ script:
 - docker build -t $REPO:python-3.6-0.11.0 --build-arg KAFKA_VERSION=0.11.0 - < Dockerfile.alpine.py3
 deploy:
   provider: script
+  on:
+    tags: true
   script:
     - >   
       docker tag $REPO:python-3.6-0.9.4 $REPO:python-3.6-0.9.4-$TRAVIS_TAG &&
@@ -20,7 +22,5 @@ deploy:
       docker tag $REPO:python-3.6-0.11.0 $REPO:python-3.6 &&
       docker tag $REPO:python-3.6-0.11.0 $REPO:python-3.6-latest &&
       docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USER" -p="$DOCKER_PASS" &&
-      docker push $REPO;
-  on:
-    tags: true
+      docker push $REPO
 
